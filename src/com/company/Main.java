@@ -23,7 +23,7 @@ public class Main {
     public static void main(String[] args) {
         menu();
 
-        ArrayList<Task> list = new ArrayList<Task>();
+        TaskList list = new TaskList();
 
 
         int choice = input.nextInt();
@@ -55,6 +55,8 @@ public class Main {
         }
         // 0
         if (choice == 0) {
+            serializeSimple(list);
+            deserializeSimple();
             System.out.println("Goodbye");
             System.exit(0);
         }
@@ -71,7 +73,7 @@ public class Main {
         System.out.println(choice);
     }
 
-    static void serializeSimple(ArrayList<Task> a){
+    static void serializeSimple(TaskList a){
 //        Task list = new Task(title, add, priority);
 
         // System.out.println(person);
@@ -90,7 +92,7 @@ public class Main {
         String list1Json = " { \"description\": \"Walk the dog\", \"priority\": 2, \"title\": \"dog\"}";
         String list2Json = " {\"body\": \"Pay the bills\", \"done\": false, \"id\": 1, \"priority\": 1, \"title\": \"bills\"}";
         Gson gson = new Gson();
-        Task list1 = gson.fromJson(list1Json,Task.class);
+        TaskList list1 = gson.fromJson(fileReader,TaskList.class);
 
 //        a.add(list1);
 //        a.add(list2);
@@ -113,7 +115,7 @@ public class Main {
     }
 
     //Adds an item to the list
-    static void add(ArrayList<Task> a) {
+    static void add(TaskList a) {
         input.nextLine();
         String title = promptString("What is the name of the task you would like to add?");
         String add = promptString("Please give of a description of the task you would like to add");
@@ -125,7 +127,7 @@ public class Main {
     }
 
     //removes an item
-    static void removeTask(ArrayList<Task> a) {
+    static void removeTask(TaskList a) {
         System.out.println(a);
         System.out.println("Which would you like to remove? (1, 2, 3, 4, Etc...");
         int remove = input.nextInt() - 1;
@@ -141,7 +143,7 @@ public class Main {
 
 
     //
-    static void updateTask(ArrayList<Task> a) {
+    static void updateTask(TaskList a) {
         System.out.println(a);
         System.out.println("Which would you like to update? (1, 2, 3, 4, Etc...");
         int remove = input.nextInt() - 1;
@@ -160,13 +162,13 @@ public class Main {
 
     }
 
-    static void displayList(ArrayList<Task> a) {
+    static void displayList(TaskList a) {
         Collections.sort(a);
         System.out.println("Listing all tasks...");
         System.out.println(a);
     }
 
-    static void displayListPriority(ArrayList<Task> a){
+    static void displayListPriority(TaskList a){
         input.nextLine();
         priority = promptInt("Which Priority would you like to look at?");
         System.out.println("Listing all tasks with the priority " + priority);
